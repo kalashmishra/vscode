@@ -1,0 +1,112 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div id="main">
+    <div id="left">
+<div id="nav">
+  <h4>EXPLORE</h4>
+  <i class="ri-more-fill"></i>
+
+</div>
+<div id="folder-nav">
+  <h4>Folder Name</h4>
+  <div class="icon">
+    <i id="fileicon"  class="ri-file-3-line"></i>
+    <i id="foldericon" class="ri-folder-2-fill"></i>
+    <a href="/"><i id="refreshicon" class="ri-restart-line"></i></a>
+  </div>
+  
+</div>
+<div class="forms">
+  <form id="fileform" action="/creatfile">
+    <input type="text" placeholder="file name" name="filename">
+  </form>
+  <form id="folderform" action="/creatfolder">
+    <input type="text" placeholder="folder name" name="foldername">
+  </form>
+    
+</div>
+<% files.forEach(function(file){  %>
+  <%if(file.isfolder===true){ %>
+    <div class="file">
+       <h5><i class="ri-folder-3-fill"></i><%=file.fname %></h5>
+    
+       <div class="icon">
+        <i class="ri-pencil-line"></i>
+        <a href="/deletefile/<%=file.fname %>"> <i class="ri-delete-bin-line"></i>
+        </a>
+          </div>
+    
+      </div>
+   <% } else{ %>
+ <div class="file">
+       <a href="/file/<%=file.fname%> ">  <h5> <i class="ri-file-2-line"></i>
+        <%=file.fname %></h5> </a>
+    <div class="icon">
+      <i class="ri-pencil-line"></i>
+      <a href="/deletefile/<%=file.fname %>"> <i class="ri-delete-bin-line"></i>
+      </a>
+        </div>
+  
+   </div>
+     <%  } %>
+   <% }) %>
+ </div>
+    <div id="right">
+        <div id="rnav">
+        <div id="opened">
+           <%= filename%>
+        <a href="/">  <i class="ri-close-line"></i>
+        </a>       </div>
+      </div> 
+      <textarea>
+        <%= filedata%>
+      </textarea>
+ </div>
+  </div>
+  <script>
+    function onOff(){
+document.querySelectorAll("form").forEach(function(e){
+  e.style.display="none";
+})
+    }
+    document.querySelector("#fileicon").addEventListener("click", function(){
+      onOff();
+  
+      document.querySelector("#fileform").style.display="initial"
+    })
+    document.querySelector("#foldericon").addEventListener("click", function(){
+      onOff();
+      document.querySelector("#folderform").style.display="initial"
+    })
+    window.addEventListener("keydown", function(e){
+      if(e.keyCode===27) {
+        onOff();
+        document.querySelectorAll("form input").forEach(function(elem){
+         elem.value ="";
+        })
+      }
+    
+      })
+  
+  </script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
